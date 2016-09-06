@@ -1,19 +1,19 @@
-import React, {Component} from 'react';
+import React from 'react';
 
-export default class RemoveListButton extends Component {
+export default class RemoveListButton extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            visibility : false
+            visibility: false
         };
     }
     render() {
         var customStyle;
         if (this.state.visibility) {
-            customStyle = {display: "" };   
+            customStyle = { display: "" };
         }
-        else{
-            customStyle = {display: "none" };
+        else {
+            customStyle = { display: "none" };
         }
         return (
             <div style = {customStyle} className="list-remove-button" onClick={this.props.onClick}>

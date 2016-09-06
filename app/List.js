@@ -1,7 +1,6 @@
-import React, {Component} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import CheckedItem from './CheckedItem.js';
-import ReminderItem from './ReminderItem.js';
 import ColorPickerItem from './ColorPickerItem.js';
 import RemoveListButton from './RemoveListButton.js';
 
@@ -11,21 +10,12 @@ export default class List extends React.Component {
 		this.state = {
 			bgcolor: "white",
 			itemsCount: 1,
-			itemArray: [<CheckedItem hasAutoFocus={true} itemId={0} key={0} onChange={this.checkedItemTextOnChanged.bind(this) } onSubmit={this.myOnSubmit.bind(this) }/>]
+			itemArray: [<CheckedItem autoFocus={true} itemId={0} key={0} onChange={this.checkedItemTextOnChanged.bind(this) } onClick={this.onClickCheckedItem.bind(this) }/>]
 		};
-		this.handleClick = this.handleClick.bind(this);
-		this.myOnSubmit = this.myOnSubmit.bind(this);
+		this.onClickColorPickerItem = this.onClickColorPickerItem.bind(this);
+		this.onClickCheckedItem = this.onClickCheckedItem.bind(this);
 	}
-	componentDidMount() {
-		console.log("CDM List");
-	}
-	componentWillMount() {
-		console.log("CWM List");
-	}
-	componentWillUnmount() {
-		console.log("componentWillUnmount List");
-	}
-	myOnSubmit(component, event) {
+	onClickCheckedItem(component, event) {
 		var itemIndex = this.getItemIndex(component.props.itemId);
 		this.removeItemFromItemArray(itemIndex);
 	};
@@ -42,10 +32,9 @@ export default class List extends React.Component {
 			this.removeItemFromItemArray(itemIndex);
 		}
 	};
-	handleClick(component, event) {
+	onClickColorPickerItem(component, event) {
 		this.setState({ bgcolor: component.props.color })
 	};
-	// asdasdas
 	getItemIndex(itemId) {
 		for (var i = 0; i < this.state.itemArray.length; i++) {
 			if (this.state.itemArray[i].props.itemId == itemId)
@@ -55,7 +44,7 @@ export default class List extends React.Component {
 	addDefaultItemToItemArray() {
 		this.setState({
 			itemsCount: ++this.state.itemsCount,
-			itemArray: this.state.itemArray.concat(<CheckedItem itemId={this.state.itemsCount - 1} key={this.state.itemsCount - 1} onChange={this.checkedItemTextOnChanged.bind(this) } onSubmit={this.myOnSubmit.bind(this) } />)
+			itemArray: this.state.itemArray.concat(<CheckedItem itemId={this.state.itemsCount - 1} key={this.state.itemsCount - 1} onChange={this.checkedItemTextOnChanged.bind(this) } onClick={this.onClickCheckedItem.bind(this) } />)
 		});
 	};
 	removeItemFromItemArray(index) {
@@ -65,13 +54,13 @@ export default class List extends React.Component {
 			itemArray: tempArr
 		});
 	};
-	onHover() {
-		this.refs.btn.setState({
+	onMouseEnter() {
+		this.refs.removeListButton.setState({
 			visibility: true
 		});
 	};
 	onMouseLeave() {
-		this.refs.btn.setState({
+		this.refs.removeListButton.setState({
 			visibility: false
 		});
 	};
@@ -80,17 +69,17 @@ export default class List extends React.Component {
 			backgroundColor: this.state.bgcolor
 		};
 		return (
-			<div className="list" style = {customStyle} listId={this.props.listId} onMouseEnter={this.onHover.bind(this) } onMouseLeave={this.onMouseLeave.bind(this) } >
-				<RemoveListButton ref="btn" onClick={this.props.onClickX.bind(null,this)}/>
+			<div className="list" style = {customStyle} listId={this.props.listId} onMouseEnter={this.onMouseEnter.bind(this) } onMouseLeave={this.onMouseLeave.bind(this) } >
+				<RemoveListButton ref="removeListButton" onClick={this.props.onClick.bind(null, this) }/>
 				<div className="list-header">
 					<h1>
 						{this.props.title}
 					</h1>
 					<div className="color-picker">
 						<ul className="color-picker-ul">
-							<ColorPickerItem color="yellow" onClick={this.handleClick}/>
-							<ColorPickerItem color="bisque" onClick={this.handleClick}/>
-							<ColorPickerItem color="greenyellow" onClick={this.handleClick}/>
+							<ColorPickerItem color="yellow" onClick={this.onClickColorPickerItem}/>
+							<ColorPickerItem color="bisque" onClick={this.onClickColorPickerItem}/>
+							<ColorPickerItem color="greenyellow" onClick={this.onClickColorPickerItem}/>
 						</ul>
 					</div>
 				</div>
@@ -101,7 +90,10 @@ export default class List extends React.Component {
 		);
 	}
 }
+List.propTypes = {
+	listId: React.PropTypes.number.isRequired,
+	title: React.PropTypes.string.isRequired
+};
 List.defaultProps = {
-	title: "NewList",
-	texta: ""
+	title: "NewList"
 };

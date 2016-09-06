@@ -1,29 +1,19 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 
 export default class CheckedItem extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			isChanged: false,
-			mount: true
+			isChanged: false
 		};
-	}
-	componentDidMount() {
-		console.log("CDM CheckedItem");
-	}
-	componentWillMount() {
-		console.log("CWM CheckedItem");		
-	}
-	componentWillUnmount() {
-		console.log("componentWillUnmount CheckedItem");
 	}
 	render() {
 		if (this.state.isChanged) {
 			return (
 				<div className = "item" key={this.props.itemKey} itemId={this.props.itemId}>
 					<input type="checkbox" defaultChecked={this.props.isChecked} tabIndex ="-1"/>
-					<input type="text" ref="txt" value={this.props.texta} onChange={this.props.onChange.bind(null, this) } name={this.props.isChanged} />
-					<input type="button" value="x" onClick={this.props.onSubmit.bind(null, this) } tabIndex ="-1"/>
+					<input type="text" ref="txt" value={this.props.text} onChange={this.props.onChange.bind(null, this) } />
+					<input type="button" value="x" onClick={this.props.onClick.bind(null, this) } tabIndex ="-1"/>
 				</div>
 			);
 		}
@@ -31,15 +21,20 @@ export default class CheckedItem extends React.Component {
 			return (
 				<div className = "default item" key={this.props.itemKey} itemId={this.props.itemId}>
 					<input type="checkbox" defaultChecked={this.props.isChecked}/>
-					<input autoFocus={this.props.hasAutoFocus} type="text" ref="txt" placeholder="Add new note" value={this.props.texta} onChange={this.props.onChange.bind(null, this) } name={this.props.isChanged} />
+					<input autoFocus={this.props.autoFocus} type="text" ref="txt" placeholder="Add new note" value={this.props.text} onChange={this.props.onChange.bind(null, this) } />
 				</div>
 			);
 		}
 	}
 }
 CheckedItem.propTypes = {
-	texta: React.PropTypes.string.isRequired
+	itemKey: React.PropTypes.number.isRequired,
+	itemId: React.PropTypes.number.isRequired,
+	defaultChecked: React.PropTypes.bool,
+	text: React.PropTypes.string,
+	autoFocus: React.PropTypes.bool,
 }
 CheckedItem.defaultProps = {
-	isChecked: false
+	isChecked: false,
+	autoFocus: false
 };

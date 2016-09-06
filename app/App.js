@@ -1,24 +1,16 @@
-import React, {Component, PropTypes} from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom';
 import List from './List.js';
-import AddNewListButton from './AddNewListButton.js';
+import AddListButton from './AddListButton.js';
 
-class MyApp extends Component {
+class MyApp extends React.Component {
   constructor() {
     super();
     this.state = {
       listCount: 0,
       listArray: []
     };
-  }
-  componentDidMount() {
-    console.log("CDM MyApp");
-  }
-  componentWillMount() {
-    console.log("CWM MyApp");
-  }
-  componentWillUnmount() {
-    console.log("componentWillUnmount MyApp");
+    this.onClickRemoveListButton = this.onClickRemoveListButton.bind(this);
   }
   getListIndex(listId) {
     for (var i = 0; i < this.state.listArray.length; i++) {
@@ -29,7 +21,7 @@ class MyApp extends Component {
   addListToListArray() {
     this.setState({
       listCount: ++this.state.listCount,
-      listArray: this.state.listArray.concat(<List listId={this.state.listCount - 1} key={this.state.listCount - 1} onClickX={this.onClickRemoveListButton} />)
+      listArray: this.state.listArray.concat(<List listId={this.state.listCount - 1} key={this.state.listCount - 1} onClick={this.onClickRemoveListButton} />)
     });
   };
   removeListFromListArray(index) {
@@ -39,18 +31,18 @@ class MyApp extends Component {
       listArray: tempArr
     });
   };
-  onClickAddNewListButton() {
+  onClickAddListButton() {
     this.addListToListArray();
   };
   onClickRemoveListButton(component, event) {
-    var listIndex = getListIndex(component.props.listId);
+    var listIndex = this.getListIndex(component.props.listId);
     this.removeListFromListArray(listIndex);
   }
   render() {
     return (
       <div className = "app-container">
         <div className="action-container">
-          <AddNewListButton onButtonClick={this.onClickAddNewListButton.bind(this) }/>
+          <AddListButton title="Add New List" onClick={this.onClickAddListButton.bind(this) }/>
         </div>
         <div className = "list-container">
           {this.state.listArray}
