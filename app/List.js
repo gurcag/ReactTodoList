@@ -45,6 +45,7 @@ export default class List extends React.Component {
 	handleClick(component, event) {
 		this.setState({ bgcolor: component.props.color })
 	};
+	// asdasdas
 	getItemIndex(itemId) {
 		for (var i = 0; i < this.state.itemArray.length; i++) {
 			if (this.state.itemArray[i].props.itemId == itemId)
