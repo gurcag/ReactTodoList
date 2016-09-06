@@ -8,7 +8,7 @@ export default class List extends React.Component {
 	constructor() {
 		super();
 		this.state = {
-			bgcolor: "white",
+			backgroundColor: "white",
 			itemsCount: 1,
 			itemArray: [<CheckedItem autoFocus={true} itemId={0} key={0} onChange={this.checkedItemTextOnChanged.bind(this) } onClick={this.onClickCheckedItem.bind(this) }/>]
 		};
@@ -33,7 +33,7 @@ export default class List extends React.Component {
 		}
 	};
 	onClickColorPickerItem(component, event) {
-		this.setState({ bgcolor: component.props.color })
+		this.setState({ backgroundColor: component.props.color })
 	};
 	getItemIndex(itemId) {
 		for (var i = 0; i < this.state.itemArray.length; i++) {
@@ -66,7 +66,7 @@ export default class List extends React.Component {
 	};
 	render() {
 		var customStyle = {
-			backgroundColor: this.state.bgcolor
+			backgroundColor: this.state.backgroundColor
 		};
 		return (
 			<div className="list" style = {customStyle} listId={this.props.listId} onMouseEnter={this.onMouseEnter.bind(this) } onMouseLeave={this.onMouseLeave.bind(this) } >
