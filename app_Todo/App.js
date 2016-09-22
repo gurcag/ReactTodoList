@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import List from './List.js';
 import AddListButton from './AddListButton.js';
+import Search from './Search.js';
 
 class MyApp extends React.Component {
   constructor() {
@@ -43,6 +44,9 @@ class MyApp extends React.Component {
       <div className = "app-container">
         <div className="action-container">
           <AddListButton title="Add New List" onClick={this.onClickAddListButton.bind(this) }/>
+          <div className="search-container">
+            <Search/>
+          </div>
         </div>
         <div className = "list-container">
           {this.state.listArray}

@@ -10,7 +10,9 @@ export default class List extends React.Component {
 		this.state = {
 			backgroundColor: "white",
 			itemsCount: 1,
-			itemArray: [<CheckedItem autoFocus={true} itemId={0} key={0} onChange={this.checkedItemTextOnChanged.bind(this) } onClick={this.onClickCheckedItem.bind(this) }/>]
+			itemArray: [<CheckedItem autoFocus={true} itemId={0} key={0}
+				onChange={this.checkedItemTextOnChanged.bind(this) }
+				onClick={this.onClickCheckedItem.bind(this) }/>]
 		};
 		this.onClickColorPickerItem = this.onClickColorPickerItem.bind(this);
 		this.onClickCheckedItem = this.onClickCheckedItem.bind(this);
@@ -33,7 +35,7 @@ export default class List extends React.Component {
 		}
 	};
 	onClickColorPickerItem(component, event) {
-		this.setState({ backgroundColor: component.props.color })
+		this.setState({ backgroundColor: component.props.color });
 	};
 	getItemIndex(itemId) {
 		for (var i = 0; i < this.state.itemArray.length; i++) {
@@ -44,7 +46,10 @@ export default class List extends React.Component {
 	addDefaultItemToItemArray() {
 		this.setState({
 			itemsCount: ++this.state.itemsCount,
-			itemArray: this.state.itemArray.concat(<CheckedItem itemId={this.state.itemsCount - 1} key={this.state.itemsCount - 1} onChange={this.checkedItemTextOnChanged.bind(this) } onClick={this.onClickCheckedItem.bind(this) } />)
+			itemArray: this.state.itemArray.concat(<CheckedItem itemId={this.state.itemsCount - 1}
+				key={this.state.itemsCount - 1}
+				onChange={this.checkedItemTextOnChanged.bind(this) }
+				onClick={this.onClickCheckedItem.bind(this) } />)
 		});
 	};
 	removeItemFromItemArray(index) {
@@ -69,7 +74,9 @@ export default class List extends React.Component {
 			backgroundColor: this.state.backgroundColor
 		};
 		return (
-			<div className="list" style = {customStyle} listId={this.props.listId} onMouseEnter={this.onMouseEnter.bind(this) } onMouseLeave={this.onMouseLeave.bind(this) } >
+			<div className="list" style = {customStyle} listId={this.props.listId}
+				onMouseEnter={this.onMouseEnter.bind(this) }
+				onMouseLeave={this.onMouseLeave.bind(this) } >
 				<RemoveListButton ref="removeListButton" onClick={this.props.onClick.bind(null, this) }/>
 				<div className="list-header">
 					<h1>
@@ -92,7 +99,8 @@ export default class List extends React.Component {
 }
 List.propTypes = {
 	listId: React.PropTypes.number.isRequired,
-	title: React.PropTypes.string.isRequired
+	title: React.PropTypes.string.isRequired,
+	tag: React.PropTypes.string
 };
 List.defaultProps = {
 	title: "NewList"
